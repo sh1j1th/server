@@ -1,11 +1,13 @@
 const mongoose = require("mongoose")
 
-const user_master = mongoose.model('user', new mongoose.Schema({
+const mentor_master = mongoose.model('mentor', new mongoose.Schema({
   //user_name: {type: String, required: true, unique: false},
   firstName: {type: String, required: true, unique: false},
   lastName: {type: String, required: true, unique: false},
   email:  {type: String, required: true, unique: true },
+  linkedinUrl:  {type: String, required: false, unique: false },
+  yearsOfExperience:  {type: String, required: false, unique: false },
   password: {type: String, required: true, unique: false}
 },{strict: true}))
 
-module.exports = user_master 
+module.exports = mentor_master

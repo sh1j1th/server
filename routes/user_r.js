@@ -16,4 +16,4 @@ user_router.post("/check", user_controller.authenticate)// Check valid user or n
 user_router.delete("/:id", user_controller.delete1)// Delete an user Record
 user_router.put("/:id",    user_controller.update1)// Delete an user Record
 
-module.exports = user_router
+module.exports = user_router 

@@ -33,6 +33,16 @@ app.use('/user', user_route)// user routes
     res.send(`user GET Request`)
 }) */
 
+const mentor_route = require('./routes/mentor_r')// mentor routes
+app.use('/mentor', mentor_route)// mentor routes
+
+const admin_route = require('./routes/admin_r')// admin routes
+app.use('/admin', admin_route)// admin routes
+
+const course_route = require('./routes/course_r')// course routes
+app.use('/course', validate_token, course_route)// course routes
+app.use('/coursedev', course_route)// course routes
+
 const item_route = require('./routes/item_r')// item routes
 app.use('/item', validate_token, item_route)// item routes
 app.use('/itemdev', item_route)// item routes

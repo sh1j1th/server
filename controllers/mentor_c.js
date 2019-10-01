@@ -1,0 +1,91 @@
+const jwt      = require('jsonwebtoken')// JSON Web Token to Secure REST APIs
+let mentor_model = require('../models/mentor_m')
+const config   = require('./../config/config')// config/config.js
+
+function create_token(email){
+    // sign with default (HMAC SHA256)
+    let expire_time =  Math.floor(Date.now() / 1000) + (config.jwt_token_valid * 60) // jwt_token_valid is in Minutes, so convert in to Seconds from now
+    let token = jwt.sign({ email: email, exp: expire_time }, config.secret_word)
+    return token
+}
+
+module.exports = {
+select_all: async (req, res)=>{// Get all mentors
+    try {
+        let mentors = await mentor_model.find().exec()
+        res.send(mentors)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+},
+records_in_table_form: async (req, res)=>{// Get all mentors & List in HTML Table
+    try {
+        let mentors = await mentor_model.find().exec()
+        let html = '<h1>mentor List</h1><table border="1" cellspacing="0" cellpadding="5"><tr><th>SrNo</th><th>_id</th><th>mentor Name</th><th>Email Id</th><th>Password</th></tr>'
+        let serial_no = 1
+        mentors.forEach((record)=>{
+            html += `<tr><td>${serial_no}</td><td>${record._id}</td><td>${record.mentor_name}</td><td>${record.email_id}</td><td>${record.pass_word}</td></tr>`
+            serial_no++
+        })
+        html += '</table>'
+        res.send(html)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+},
+select1_by_id: async (req, res)=>{// Get a selected mentor
+    try {
+        let mentor = await mentor_model.findById(req.params.id).exec()
+        res.send(mentor)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+},
+register: async(req, res)=>{// Save an mentor Record
+    try {
+        console.log(req.body)
+        let mentor   = new mentor_model(req.body)
+        let result = await mentor.save()
+        res.send(result)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+},
+authenticate: async(req, res)=>{// Check valid mentor or not
+    try {
+        //console.log(req.body)
+        let mentors = await mentor_model.find({ email: req.body.email, password: req.body.password }).exec()
+        //console.log(mentors.length)
+        //console.log(mentors)
+        if(mentors.length == 1) {// Found mentor record for given email_id & pass_word
+            res.send(create_token(req.body.email))// Send token to Frontend if a Valid mentor is Logging in
+            //res.send("Valid mentor")
+        } else {
+            res.send("Invalid Credentials")// mentor not found or he did not Register with us
+        }
+    } catch(err) {
+        res.status(500).send(err)
+    }
+},
+delete1: async(req,res)=>{// Delete an mentor Record
+    try {
+        let result = await mentor_model.deleteOne({_id: req.params.id}).exec()
+        res.send(result)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+},
+update1: async(req, res)=>{// Update an mentor Record
+    try {
+        console.log("req.params.id : " + req.params.id)
+        console.log("req.body")
+        console.log(req.body)
+        let filter = { _id: req.params.id };
+        let update = { mentor_name: req.body.mentor_name, email: req.body.email, pass_word: req.body.password };
+        let result = await mentor_model.findOneAndUpdate(filter, update, {new: true});
+        res.send(result)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+}
+}

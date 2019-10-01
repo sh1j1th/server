@@ -7,7 +7,7 @@ function create_token(email){
     let expire_time =  Math.floor(Date.now() / 1000) + (config.jwt_token_valid * 60) // jwt_token_valid is in Minutes, so convert in to Seconds from now
     let token = jwt.sign({ email: email, exp: expire_time }, config.secret_word)
     return token
-}
+} 
 
 module.exports = {
 select_all: async (req, res)=>{// Get all users
