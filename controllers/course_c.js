@@ -36,6 +36,16 @@ select1_by_id: async (req, res)=>{// Get a selected course
         res.status(500).send(err)
     }
 },
+register: async (req, res) => {// Save an user Record
+    try {
+        console.log(req.body)
+        let user = new user_model(req.body)
+        let result = await user.save()
+        res.send(result)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+},
 insert: async(req, res)=>{// Save an course Record
     try {
         console.log(req.body)

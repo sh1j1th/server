@@ -7,7 +7,8 @@ const mentor_master = mongoose.model('mentor', new mongoose.Schema({
   email:  {type: String, required: true, unique: true },
   linkedinUrl:  {type: String, required: false, unique: false },
   yearsOfExperience:  {type: String, required: false, unique: false },
-  password: {type: String, required: true, unique: false}
+  password: {type: String, required: true, unique: false},
+  status: {type: String, required: false, unique: false}
 },{strict: true}))
 
 module.exports = mentor_master

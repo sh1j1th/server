@@ -1,6 +1,6 @@
 const express     = require('express')
 const bodyParser  = require('body-parser')
-const user_router = express.Router()
+const user_router = express.Router() 
 
 user_router.use(bodyParser.urlencoded({extended: true}))
 //user_router.use(bodyParser.json())
@@ -14,6 +14,9 @@ user_router.get("/:id",    user_controller.select1_by_id)// Get a selected user.
 user_router.post("/",      user_controller.register)// Save an user Record / Save Register Form data.
 user_router.post("/check", user_controller.authenticate)// Check valid user or not.
 user_router.delete("/:id", user_controller.delete1)// Delete an user Record
-user_router.put("/:id",    user_controller.update1)// Delete an user Record
+user_router.put("/:id",    user_controller.update1)// update an user Record
+user_router.put("/block/:id",    user_controller.block1)// update an user Record
+user_router.put("/unblock/:id",    user_controller.unblock1)// update an user Record
+
 
 module.exports = user_router 

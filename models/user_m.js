@@ -5,7 +5,8 @@ const user_master = mongoose.model('user', new mongoose.Schema({
   firstName: {type: String, required: true, unique: false},
   lastName: {type: String, required: true, unique: false},
   email:  {type: String, required: true, unique: true },
-  password: {type: String, required: true, unique: false}
+  password: {type: String, required: true, unique: false},
+  status: {type: String, required: false, unique: false}
 },{strict: true}))
 
 module.exports = user_master 

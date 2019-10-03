@@ -13,5 +13,6 @@ course_router.get("/table",  course_controller.records_in_table_form)// Get all 
 course_router.get("/:id",    course_controller.select1_by_id)// Get a selected course.
 course_router.post("/",      course_controller.insert)// Save an course Record.
 course_router.delete("/:id", course_controller.delete1)// Delete an course Record
+course_router.post("/",      course_controller.register)// Save an course Record / Save Register Form data.
 
 module.exports = course_router

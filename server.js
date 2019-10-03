@@ -39,6 +39,9 @@ app.use('/mentor', mentor_route)// mentor routes
 const admin_route = require('./routes/admin_r')// admin routes
 app.use('/admin', admin_route)// admin routes
 
+const courseList_route = require('./routes/courseList_r')// courseList routes
+app.use('/courseList', courseList_route)// courseList routes
+
 const course_route = require('./routes/course_r')// course routes
 app.use('/course', validate_token, course_route)// course routes
 app.use('/coursedev', course_route)// course routes
@@ -55,7 +58,7 @@ function validate_token(req, res, callback) {
     // Express headers are auto converted to lowercase
     let token = req.headers['x-access-token'] || req.headers['authorization']
     //if (token.startsWith('Bearer ')) {
-        //token = token.slice(7, token.length)// Remove Bearer from token string
+      //  token = token.slice(7, token.length)// Remove Bearer from token string
     //}
 	//console.log(token)
     jwt.verify(token, config.secret_word, (err, decoded)=>{
