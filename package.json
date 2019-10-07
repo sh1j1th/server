@@ -1,13 +1,13 @@
 {
-  "name": "amar-api",
+  "name": "api",
   "version": "1.0.0",
-  "description": "Amar REST APIs using Node.js, Express.js, MongoDB & Mongoose Model",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./server.js"
   },
-  "author": "Amar",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

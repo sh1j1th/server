@@ -56,12 +56,12 @@ module.exports = {
             //console.log(req.body)
             let mentors = await mentor_model.find({ email: req.body.email, password: req.body.password, status: req.body.status }).exec()
             //console.log(mentors.length)
-            //console.log(mentors)
+            console.log(mentors[0].status)
 
             if (mentors.length == 1) {
                 // Found mentor record for given email_id & pass_word
                 if (mentors[0].status == "blocked") {
-                    res.send("User blocked")
+                    res.send("mentor blocked")
                 }
                 else {
                     res.send(create_token(req.body.email, req.body.status))// Send token to Frontend if a Valid mentor is Logging in
@@ -90,6 +90,32 @@ module.exports = {
             console.log(req.body)
             let filter = { _id: req.params.id };
             let update = { mentor_name: req.body.mentor_name, email: req.body.email, pass_word: req.body.password };
+            let result = await mentor_model.findOneAndUpdate(filter, update, { new: true });
+            res.send(result)
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    },
+    block1: async (req, res) => {// Update an mentor Record
+        try {
+            console.log("req.params.id : " + req.params.id)
+            console.log("req.body")
+            console.log(req.body)
+            let filter = { _id: req.params.id };
+            let update = { status: "blocked" };
+            let result = await mentor_model.findOneAndUpdate(filter, update, { new: true });
+            res.send(result)
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    },
+    unblock1: async (req, res) => {// Update an mentor Record
+        try {
+            console.log("req.params.id : " + req.params.id)
+            console.log("req.body")
+            console.log(req.body)
+            let filter = { _id: req.params.id };
+            let update = { status: "active" };
             let result = await mentor_model.findOneAndUpdate(filter, update, { new: true });
             res.send(result)
         } catch (err) {

@@ -15,5 +15,7 @@ mentor_router.post("/",      mentor_controller.register)// Save an mentor Record
 mentor_router.post("/check", mentor_controller.authenticate)// Check valid mentor or not.
 mentor_router.delete("/:id", mentor_controller.delete1)// Delete an mentor Record
 mentor_router.put("/:id",    mentor_controller.update1)// Delete an mentor Record
+mentor_router.put("/block/:id",    mentor_controller.block1)// update an mentor Record
+mentor_router.put("/unblock/:id",    mentor_controller.unblock1)// update an mentor Record
 
 module.exports = mentor_router
